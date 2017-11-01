@@ -1,11 +1,7 @@
-package com.narcielitonlopes.socialbooks.aplicacao;
+package com.narcielitonlopes.socialbooks.client.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 

@@ -1,28 +1,34 @@
 package com.narcielitonlopes.socialbooks.aplicacao;
 
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import com.narcielitonlopes.socialbooks.client.AutoresClient;
+import com.narcielitonlopes.socialbooks.client.domain.Autor;
 
-import java.net.URI;
+import java.util.List;
 
-/**
- * Created by narcieliton on 30/10/17.
- */
 public class Aplicacao {
 
     public static void main(String []args) {
 
-        RestTemplate restTemplate = new RestTemplate();
+         AutoresClient cliente = new AutoresClient();
 
-        RequestEntity<Void> request = RequestEntity.get(URI.create("http://localhost:8080/autores"))
-                .build();
+         List<Autor> listaAutores = cliente.listar();
 
-        ResponseEntity<Autor[]> response = restTemplate.exchange(request, Autor[].class);
+         for(Autor autor : listaAutores){
+             System.out.println(autor.getNome());
+         }
 
-        for (Autor autor : response.getBody()){
-            System.out.println(autor.getNome());
-        }
+         Autor autor = new Autor();
+         autor.setNome("narcieliton lopes");
+         autor.setNacionalidade("Brasileiro");
+
+
+         String localizacao = cliente.salvar(autor);
+         System.out.println("URI do autor salvo: " + localizacao);
+
+        Autor autorBuscado = cliente.buscar(localizacao);
+
+
+          System.out.println("Autor buscado: " + autorBuscado.getNome());
 
     }
 }
